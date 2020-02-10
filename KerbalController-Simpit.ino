@@ -1,5 +1,7 @@
 #include "KerbalSimpit.h"
 #include <Button.h>
+#include <PayloadStructs.h>
+
 KerbalSimpit mySimpit(Serial);      //Establishing a connection to the Plugin
 
 //analog pins
