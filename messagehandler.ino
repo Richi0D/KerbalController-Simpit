@@ -32,7 +32,7 @@ void messageHandler(byte messageType, byte msg[], byte msgSize) {
         else {brakes_on = LOW;}
         if (msg & LIGHT_ACTION) {lights_on = HIGH;}
         else {lights_on = LOW;} 
-        
+        break;
       case APSIDES_MESSAGE:
         if (msgSize == sizeof(apsidesMessage)) {     
         apsidesMessage myApsides;                 
@@ -40,7 +40,7 @@ void messageHandler(byte messageType, byte msg[], byte msgSize) {
         DataAP = myApsides.apoapsis;
         DataPE = myApsides.periapsis;
         }        
-      
+        break;
       case APSIDESTIME_MESSAGE:
         if (msgSize == sizeof(apsidesTimeMessage)) {     
         apsidesTimeMessage myApsidestime;                 
@@ -48,7 +48,7 @@ void messageHandler(byte messageType, byte msg[], byte msgSize) {
         DataAPTime = myApsidestime.apoapsis;
         DataPETime = myApsidestime.periapsis;
         }        
-      
+        break;
       case ALTITUDE_MESSAGE:
         if (msgSize == sizeof(altitudeMessage)) {     
         altitudeMessage myAltitude;                 
@@ -56,7 +56,7 @@ void messageHandler(byte messageType, byte msg[], byte msgSize) {
         DataAlt = myAltitude.sealevel;
         DataRAlt = myAltitude.surface;
         }        
-      
+        break;
       case VELOCITY_MESSAGE:
         if (msgSize == sizeof(velocityMessage)) {     
         velocityMessage myVelocity;                 
@@ -65,14 +65,14 @@ void messageHandler(byte messageType, byte msg[], byte msgSize) {
         VVI = myVelocity.vertical;
         VOrbit = myVelocity.orbital;
         }        
-                   
+        break;           
       case AIRSPEED_MESSAGE:
         if (msgSize == sizeof(airspeedMessage)) {     
         airspeedMessage myAirspeed;                 
         myAirspeed = parseAirspeed(msg);
         MachNumber = myAirspeed.mach;
         }        
-      
+        break;
       case TARGETINFO_MESSAGE:
         if (msgSize == sizeof(targetMessage)) {     
         targetMessage myTarget;                 
@@ -80,9 +80,9 @@ void messageHandler(byte messageType, byte msg[], byte msgSize) {
         DataTargetDist = myTarget.distance;
         TargetV = myTarget.velocity;       
         }        
-        
+        break;
       case SOI_MESSAGE:
         strSOINumber = msg;   
-          
+        break;  
    }                          
 }
