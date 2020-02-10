@@ -29,8 +29,8 @@ void define_control_packet() {
        flymode = 3;} // plane mode + precision
      else {flymode = 0;}
 
-    int deadzone = 25;
-    int deadzonethrottle = 10;
+    int deadzone = 50;
+    int deadzonethrottle = 25;
 
     switch(flymode){
     case 0:

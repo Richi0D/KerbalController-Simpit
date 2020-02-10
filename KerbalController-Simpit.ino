@@ -182,6 +182,18 @@ void setup()  //Starting the Arduino
   // Sets our callback function. The KerbalSimpit library will
   // call this function every time a packet is received.
   mySimpit.inboundHandler(messageHandler); 
+
+
+      if (PageDisplay1 !=1){
+        PageDisplay1 = 1;
+        sendToDisplay1(String("page ") + String(PageDisplay1));}
+      if (PageDisplay2 !=1){
+        PageDisplay2 = 1;
+        sendToDisplay2(String("page ") + String(PageDisplay2));}
+      AtmosphereGauge(10);   //Atmosphere gauge off 
+
+
+  
 }
 
 void loop() {   //Looping
@@ -192,5 +204,17 @@ void loop() {   //Looping
   mySimpit.update();       // Check for new serial messages     
   send_control_packet();
   //get_vessel_data();
-
+  //update button LEDs based on in-game status
+  digitalWrite(pLIGHTSLED, lights_on); 
+  digitalWrite(pGEARSLED, gears_on);
+  digitalWrite(pBRAKESLED, brakes_on);
+  digitalWrite(pACTION1LED, action1_on);
+  digitalWrite(pACTION2LED, action2_on);
+  digitalWrite(pACTION3LED, action3_on);
+  digitalWrite(pACTION4LED, action4_on);
+  digitalWrite(pACTION5LED, action5_on);
+  digitalWrite(pACTION6LED, action6_on);    
+  digitalWrite(pLADDERLED, ladder_on);
+  digitalWrite(pSOLARLED, solar_on);
+  digitalWrite(pCHUTESLED, chutes_on);
   }

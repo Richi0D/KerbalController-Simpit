@@ -26,12 +26,18 @@ void messageHandler(byte messageType, byte msg[], byte msgSize) {
         deadtimeOld = now;   //reset idle timer
       switch(messageType){
       case ACTIONSTATUS_MESSAGE:
-        if (msg & GEAR_ACTION) {gears_on = HIGH;}
+        if (msg[0] & GEAR_ACTION) {gears_on = HIGH;}
         else {gears_on = LOW;}
-        if (msg & BRAKES_ACTION) {brakes_on = HIGH;}
+        if (msg[0] & BRAKES_ACTION) {brakes_on = HIGH;}
         else {brakes_on = LOW;}
-        if (msg & LIGHT_ACTION) {lights_on = HIGH;}
+        if (msg[0] & LIGHT_ACTION) {lights_on = HIGH;}
         else {lights_on = LOW;} 
+        if (msg[0] & RCS_ACTION) {RCS_on = HIGH;}
+        else {RCS_on = LOW;}    
+        if (msg[0] & SAS_ACTION) {SAS_on = HIGH;}
+        else {SAS_on = LOW;} 
+        if (msg[0] & ABORT_ACTION) {Abort_on = HIGH;}
+        else {Abort_on = LOW;}                      
         break;
       case APSIDES_MESSAGE:
         if (msgSize == sizeof(apsidesMessage)) {     
