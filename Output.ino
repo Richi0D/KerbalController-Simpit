@@ -29,116 +29,119 @@ void define_control_packet() {
        flymode = 3;} // plane mode + precision
      else {flymode = 0;}
 
+    int deadzone = 25;
+    int deadzonethrottle = 10;
+
     switch(flymode){
     case 0:
-      throttle_value = constrain(map(analogRead(pTHROTTLE),1000,20,0,32767),0,32767);
-      wheelMsg.throttle = constrain(map(analogRead(pTHROTTLE),1000,20,0,32767),0,32767);
+      throttle_value = constrain(map(analogRead(pTHROTTLE),1023-deadzonethrottle,0+deadzonethrottle,0,32767),0,32767);
+      wheelMsg.throttle = constrain(map(analogRead(pTHROTTLE),1023-deadzonethrottle,0+deadzonethrottle,0,32767),0,32767);
       
-      if(analogRead(pRX) >= 550){rotationMsg.yaw = constrain(map(analogRead(pRX),550,1000,0,32767),0,32767);
-      wheelMsg.steer = constrain(map(analogRead(pRX),1000,550,-32767,0),-32767,0);}
-      else if(analogRead(pRX) <= 450){rotationMsg.yaw = constrain(map(analogRead(pRX),20,450,-32767,0),-32767,0);
-      wheelMsg.steer = constrain(map(analogRead(pRX),450,20,0,32767),0,32767);}
+      if(analogRead(pRX) >= 512+deadzone){rotationMsg.yaw = constrain(map(analogRead(pRX),512+deadzone,1023,0,32767),0,32767);
+      wheelMsg.steer = constrain(map(analogRead(pRX),1023,512+deadzone,-32767,0),-32767,0);}
+      else if(analogRead(pRX) <= 450){rotationMsg.yaw = constrain(map(analogRead(pRX),0,512-deadzone,-32767,0),-32767,0);
+      wheelMsg.steer = constrain(map(analogRead(pRX),512-deadzone,0,0,32767),0,32767);}
       else {rotationMsg.yaw = 0;
       wheelMsg.steer = 0;}
-      if(analogRead(pRY) >= 550){rotationMsg.pitch = constrain(map(analogRead(pRY),550,1000,0,32767),0,32767);}
-      else if(analogRead(pRY) <= 450){rotationMsg.pitch = constrain(map(analogRead(pRY),20,450,-32767,0),-32767,0);}
+      if(analogRead(pRY) >= 512+deadzone){rotationMsg.pitch = constrain(map(analogRead(pRY),512+deadzone,1023,0,32767),0,32767);}
+      else if(analogRead(pRY) <= 512-deadzone){rotationMsg.pitch = constrain(map(analogRead(pRY),0,512-deadzone,-32767,0),-32767,0);}
       else {rotationMsg.pitch = 0;}
-      if(analogRead(pRZ) >= 550){rotationMsg.roll = constrain(map(analogRead(pRZ),550,1000,0,32767),0,32767);}
-      else if(analogRead(pRZ) <= 450){rotationMsg.roll = constrain(map(analogRead(pRZ),20,450,-32767,0),-32767,0);}
+      if(analogRead(pRZ) >= 512+deadzone){rotationMsg.roll = constrain(map(analogRead(pRZ),512+deadzone,1023,0,32767),0,32767);}
+      else if(analogRead(pRZ) <= 512-deadzone){rotationMsg.roll = constrain(map(analogRead(pRZ),0,512-deadzone,-32767,0),-32767,0);}
       else {rotationMsg.roll = 0;}
 
-      if(analogRead(pTX) >= 550){translationMsg.X = constrain(map(analogRead(pTX),1000,550,-32767,0),-32767,0);}
-      else if(analogRead(pTX) <= 450){translationMsg.X = constrain(map(analogRead(pTX),450,20,0,32767),0,32767);}
+      if(analogRead(pTX) >= 512+deadzone){translationMsg.X = constrain(map(analogRead(pTX),1023,512+deadzone,-32767,0),-32767,0);}
+      else if(analogRead(pTX) <= 512-deadzone){translationMsg.X = constrain(map(analogRead(pTX),512-deadzone,0,0,32767),0,32767);}
       else {translationMsg.X = 0;}
-      if(analogRead(pTY) >= 550){translationMsg.Y = constrain(map(analogRead(pTY),1000,550,-32767,0),-32767,0);}
-      else if(analogRead(pTY) <= 450){translationMsg.Y = constrain(map(analogRead(pTY),450,20,0,32767),0,32767);}
+      if(analogRead(pTY) >= 512+deadzone){translationMsg.Y = constrain(map(analogRead(pTY),1023,512+deadzone,-32767,0),-32767,0);}
+      else if(analogRead(pTY) <= 512-deadzone){translationMsg.Y = constrain(map(analogRead(pTY),512-deadzone,0,0,32767),0,32767);}
       else {translationMsg.Y = 0;}
-      if(analogRead(pTZ) >= 550){translationMsg.Z = constrain(map(analogRead(pTZ),1000,550,-32767,0),-32767,0);}
-      else if(analogRead(pTZ) <= 450){translationMsg.Z = constrain(map(analogRead(pTZ),450,20,0,32767),0,32767);}
+      if(analogRead(pTZ) >= 512+deadzone){translationMsg.Z = constrain(map(analogRead(pTZ),1023,512+deadzone,-32767,0),-32767,0);}
+      else if(analogRead(pTZ) <= 512-deadzone){translationMsg.Z = constrain(map(analogRead(pTZ),512-deadzone,0,0,32767),0,32767);}
       else {translationMsg.Z = 0;}
 
       break;
     case 1:
-      throttle_value = constrain(map(analogRead(pTHROTTLE),1000,20,0,32767),0,32767);
-      wheelMsg.throttle = constrain(map(analogRead(pTHROTTLE),1000,20,0,32767),0,32767);
+      throttle_value = constrain(map(analogRead(pTHROTTLE),1023-deadzonethrottle,0+deadzonethrottle,0,32767),0,32767);
+      wheelMsg.throttle = constrain(map(analogRead(pTHROTTLE),1023-deadzonethrottle,0+deadzonethrottle,0,32767),0,32767);
       
-      if(analogRead(pRX) >= 550){rotationMsg.roll = constrain(map(analogRead(pRX),550,1000,0,32767),0,32767);}
-      else if(analogRead(pRX) <= 450){rotationMsg.roll = constrain(map(analogRead(pRX),20,450,-32767,0),-32767,0);}
+      if(analogRead(pRX) >= 512+deadzone){rotationMsg.roll = constrain(map(analogRead(pRX),512+deadzone,1023,0,32767),0,32767);}
+      else if(analogRead(pRX) <= 512-deadzone){rotationMsg.roll = constrain(map(analogRead(pRX),0,512-deadzone,-32767,0),-32767,0);}
       else {rotationMsg.roll = 0;}
-      if(analogRead(pRY) >= 550){rotationMsg.pitch = constrain(map(analogRead(pRY),550,1000,0,32767),0,32767);}
-      else if(analogRead(pRY) <= 450){rotationMsg.pitch = constrain(map(analogRead(pRY),20,450,-32767,0),-32767,0);}
+      if(analogRead(pRY) >= 512+deadzone){rotationMsg.pitch = constrain(map(analogRead(pRY),512+deadzone,1023,0,32767),0,32767);}
+      else if(analogRead(pRY) <= 512-deadzone){rotationMsg.pitch = constrain(map(analogRead(pRY),0,512-deadzone,-32767,0),-32767,0);}
       else {rotationMsg.pitch = 0;}
-      if(analogRead(pRZ) >= 550){rotationMsg.yaw = constrain(map(analogRead(pRZ),550,1000,0,32767),0,32767);
-      wheelMsg.steer = constrain(map(analogRead(pRZ),1000,550,-32767,0),-32767,0);}
-      else if(analogRead(pRZ) <= 450){rotationMsg.yaw = constrain(map(analogRead(pRZ),20,450,-32767,0),-32767,0);
-      wheelMsg.steer = constrain(map(analogRead(pRZ),450,20,0,32767),0,32767);}
+      if(analogRead(pRZ) >= 512+deadzone){rotationMsg.yaw = constrain(map(analogRead(pRZ),512+deadzone,1023,0,32767),0,32767);
+      wheelMsg.steer = constrain(map(analogRead(pRZ),1023,512+deadzone,-32767,0),-32767,0);}
+      else if(analogRead(pRZ) <= 512-deadzone){rotationMsg.yaw = constrain(map(analogRead(pRZ),0,512-deadzone,-32767,0),-32767,0);
+      wheelMsg.steer = constrain(map(analogRead(pRZ),512-deadzone,0,0,32767),0,32767);}
       else {rotationMsg.yaw = 0;
       wheelMsg.steer = 0;}
 
-      if(analogRead(pTX) >= 550){translationMsg.X = constrain(map(analogRead(pTX),1000,550,-32767,0),-32767,0);}
-      else if(analogRead(pTX) <= 450){translationMsg.X = constrain(map(analogRead(pTX),450,20,0,32767),0,32767);}
+      if(analogRead(pTX) >= 512+deadzone){translationMsg.X = constrain(map(analogRead(pTX),1023,512+deadzone,-32767,0),-32767,0);}
+      else if(analogRead(pTX) <= 512-deadzone){translationMsg.X = constrain(map(analogRead(pTX),512-deadzone,0,0,32767),0,32767);}
       else {translationMsg.X = 0;}
-      if(analogRead(pTY) >= 550){translationMsg.Y = constrain(map(analogRead(pTY),1000,550,-32767,0),-32767,0);}
-      else if(analogRead(pTY) <= 450){translationMsg.Y = constrain(map(analogRead(pTY),450,20,0,32767),0,32767);}
+      if(analogRead(pTY) >= 512+deadzone){translationMsg.Y = constrain(map(analogRead(pTY),1023,512+deadzone,-32767,0),-32767,0);}
+      else if(analogRead(pTY) <= 512-deadzone){translationMsg.Y = constrain(map(analogRead(pTY),512-deadzone,0,0,32767),0,32767);}
       else {translationMsg.Y = 0;}
-      if(analogRead(pTZ) >= 550){translationMsg.Z = constrain(map(analogRead(pTZ),1000,550,-32767,0),-32767,0);}
-      else if(analogRead(pTZ) <= 450){translationMsg.Z = constrain(map(analogRead(pTZ),450,20,0,32767),0,32767);}
+      if(analogRead(pTZ) >= 512+deadzone){translationMsg.Z = constrain(map(analogRead(pTZ),1023,512+deadzone,-32767,0),-32767,0);}
+      else if(analogRead(pTZ) <= 512-deadzone){translationMsg.Z = constrain(map(analogRead(pTZ),512-deadzone,0,0,32767),0,32767);}
       else {translationMsg.Z = 0;}
     
       break;
     case 2:
-      throttle_value = constrain(map(analogRead(pTHROTTLE),1000,20,0,16383),0,16383);
-      wheelMsg.throttle = constrain(map(analogRead(pTHROTTLE),1000,20,0,16383),0,16383);
+      throttle_value = constrain(map(analogRead(pTHROTTLE),1023-deadzonethrottle,0+deadzonethrottle,0,32767),0,32767);
+      wheelMsg.throttle = constrain(map(analogRead(pTHROTTLE),1023-deadzonethrottle,0+deadzonethrottle,0,32767),0,32767);
       
-      if(analogRead(pRX) >= 550){rotationMsg.yaw = constrain(map(analogRead(pRX),550,1000,0,8192),0,8192);
-      wheelMsg.steer = constrain(map(analogRead(pRX),1000,550,-8192,0),-8192,0);}
-      else if(analogRead(pRX) <= 450){rotationMsg.yaw = constrain(map(analogRead(pRX),20,450,-8192,0),-8192,0);
-      wheelMsg.steer = constrain(map(analogRead(pRX),450,20,0,8192),0,8192);}
+      if(analogRead(pRX) >= 512+deadzone){rotationMsg.yaw = constrain(map(analogRead(pRX),512+deadzone,1023,0,8192),0,8192);
+      wheelMsg.steer = constrain(map(analogRead(pRX),1023,512+deadzone,-8192,0),-8192,0);}
+      else if(analogRead(pRX) <= 512-deadzone){rotationMsg.yaw = constrain(map(analogRead(pRX),0,512-deadzone,-8192,0),-8192,0);
+      wheelMsg.steer = constrain(map(analogRead(pRX),512-deadzone,0,0,8192),0,8192);}
       else {rotationMsg.yaw = 0;
       wheelMsg.steer = 0;}
-      if(analogRead(pRY) >= 550){rotationMsg.pitch = constrain(map(analogRead(pRY),550,1000,0,8192),0,8192);}
-      else if(analogRead(pRY) <= 450){rotationMsg.pitch = constrain(map(analogRead(pRY),20,450,-8192,0),-8192,0);}
+      if(analogRead(pRY) >= 512+deadzone){rotationMsg.pitch = constrain(map(analogRead(pRY),512+deadzone,1023,0,8192),0,8192);}
+      else if(analogRead(pRY) <= 512-deadzone){rotationMsg.pitch = constrain(map(analogRead(pRY),0,512-deadzone,-8192,0),-8192,0);}
       else {rotationMsg.pitch = 0;}
-      if(analogRead(pRZ) >= 550){rotationMsg.roll = constrain(map(analogRead(pRZ),550,1000,0,8192),0,8192);}
-      else if(analogRead(pRZ) <= 450){rotationMsg.roll = constrain(map(analogRead(pRZ),20,450,-8192,0),-8192,0);}
+      if(analogRead(pRZ) >= 512+deadzone){rotationMsg.roll = constrain(map(analogRead(pRZ),512+deadzone,1023,0,8192),0,8192);}
+      else if(analogRead(pRZ) <= 512-deadzone){rotationMsg.roll = constrain(map(analogRead(pRZ),0,512-deadzone,-8192,0),-8192,0);}
       else {rotationMsg.roll = 0;}
 
-      if(analogRead(pTX) >= 550){translationMsg.X = constrain(map(analogRead(pTX),1000,550,-8192,0),-8192,0);}
-      else if(analogRead(pTX) <= 450){translationMsg.X = constrain(map(analogRead(pTX),450,20,0,8192),0,8192);}
+      if(analogRead(pTX) >= 512+deadzone){translationMsg.X = constrain(map(analogRead(pTX),1023,512+deadzone,-8192,0),-8192,0);}
+      else if(analogRead(pTX) <= 512-deadzone){translationMsg.X = constrain(map(analogRead(pTX),512-deadzone,0,0,8192),0,8192);}
       else {translationMsg.X = 0;}
-      if(analogRead(pTY) >= 550){translationMsg.Y = constrain(map(analogRead(pTY),1000,550,-8192,0),-8192,0);}
-      else if(analogRead(pTY) <= 450){translationMsg.Y = constrain(map(analogRead(pTY),450,20,0,8192),0,8192);}
+      if(analogRead(pTY) >= 512+deadzone){translationMsg.Y = constrain(map(analogRead(pTY),1023,512+deadzone,-8192,0),-8192,0);}
+      else if(analogRead(pTY) <= 512-deadzone){translationMsg.Y = constrain(map(analogRead(pTY),512-deadzone,0,0,8192),0,8192);}
       else {translationMsg.Y = 0;}
-      if(analogRead(pTZ) >= 550){translationMsg.Z = constrain(map(analogRead(pTZ),1000,550,-8192,0),-8192,0);}
-      else if(analogRead(pTZ) <= 450){translationMsg.Z = constrain(map(analogRead(pTZ),450,20,0,8192),0,8192);}
+      if(analogRead(pTZ) >= 512+deadzone){translationMsg.Z = constrain(map(analogRead(pTZ),1023,512+deadzone,-8192,0),-8192,0);}
+      else if(analogRead(pTZ) <= 512-deadzone){translationMsg.Z = constrain(map(analogRead(pTZ),512-deadzone,0,0,8192),0,8192);}
       else {translationMsg.Z = 0;}
     
       break;
     case 3:
-      throttle_value = constrain(map(analogRead(pTHROTTLE),1000,20,0,16383),0,16383);
-      wheelMsg.throttle = constrain(map(analogRead(pTHROTTLE),1000,20,0,16383),0,16383);
+      throttle_value = constrain(map(analogRead(pTHROTTLE),1023-deadzonethrottle,0+deadzonethrottle,0,32767),0,32767);
+      wheelMsg.throttle = constrain(map(analogRead(pTHROTTLE),1023-deadzonethrottle,0+deadzonethrottle,0,32767),0,32767);
       
-      if(analogRead(pRX) >= 550){rotationMsg.roll = constrain(map(analogRead(pRX),550,1000,0,8192),0,8192);}
-      else if(analogRead(pRX) <= 450){rotationMsg.roll = constrain(map(analogRead(pRX),20,450,-8192,0),-8192,0);}
+      if(analogRead(pRX) >= 512+deadzone){rotationMsg.roll = constrain(map(analogRead(pRX),512+deadzone,1023,0,8192),0,8192);}
+      else if(analogRead(pRX) <= 512-deadzone){rotationMsg.roll = constrain(map(analogRead(pRX),0,512-deadzone,-8192,0),-8192,0);}
       else {rotationMsg.roll = 0;}
-      if(analogRead(pRY) >= 550){rotationMsg.pitch = constrain(map(analogRead(pRY),550,1000,0,8192),0,8192);}
-      else if(analogRead(pRY) <= 450){rotationMsg.pitch = constrain(map(analogRead(pRY),20,450,-8192,0),-8192,0);}
+      if(analogRead(pRY) >= 512+deadzone){rotationMsg.pitch = constrain(map(analogRead(pRY),512+deadzone,1023,0,8192),0,8192);}
+      else if(analogRead(pRY) <= 512-deadzone){rotationMsg.pitch = constrain(map(analogRead(pRY),0,512-deadzone,-8192,0),-8192,0);}
       else {rotationMsg.pitch = 0;}
-      if(analogRead(pRZ) >= 550){rotationMsg.yaw = constrain(map(analogRead(pRZ),550,1000,0,8192),0,8192);
-      wheelMsg.steer = constrain(map(analogRead(pRZ),1000,550,-8192,0),-8192,0);}
-      else if(analogRead(pRZ) <= 450){rotationMsg.yaw = constrain(map(analogRead(pRZ),20,450,-8192,0),-8192,0);
-      wheelMsg.steer = constrain(map(analogRead(pRZ),450,20,0,8192),0,8192);}
+      if(analogRead(pRZ) >= 512+deadzone){rotationMsg.yaw = constrain(map(analogRead(pRZ),512+deadzone,1023,0,8192),0,8192);
+      wheelMsg.steer = constrain(map(analogRead(pRZ),1023,512+deadzone,-8192,0),-8192,0);}
+      else if(analogRead(pRZ) <= 512-deadzone){rotationMsg.yaw = constrain(map(analogRead(pRZ),0,512-deadzone,-8192,0),-8192,0);
+      wheelMsg.steer = constrain(map(analogRead(pRZ),512-deadzone,0,0,8192),0,8192);}
       else {rotationMsg.yaw = 0;
       wheelMsg.steer = 0;}
 
-      if(analogRead(pTX) >= 550){translationMsg.X = constrain(map(analogRead(pTX),1000,550,-8192,0),-8192,0);}
-      else if(analogRead(pTX) <= 450){translationMsg.X = constrain(map(analogRead(pTX),450,20,0,8192),0,8192);}
+      if(analogRead(pTX) >= 512+deadzone){translationMsg.X = constrain(map(analogRead(pTX),1023,512+deadzone,-8192,0),-8192,0);}
+      else if(analogRead(pTX) <= 512-deadzone){translationMsg.X = constrain(map(analogRead(pTX),512-deadzone,0,0,8192),0,8192);}
       else {translationMsg.X = 0;}
-      if(analogRead(pTY) >= 550){translationMsg.Y = constrain(map(analogRead(pTY),1000,550,-8192,0),-8192,0);}
-      else if(analogRead(pTY) <= 450){translationMsg.Y = constrain(map(analogRead(pTY),450,20,0,8192),0,8192);}
+      if(analogRead(pTY) >= 512+deadzone){translationMsg.Y = constrain(map(analogRead(pTY),1023,512+deadzone,-8192,0),-8192,0);}
+      else if(analogRead(pTY) <= 512-deadzone){translationMsg.Y = constrain(map(analogRead(pTY),512-deadzone,0,0,8192),0,8192);}
       else {translationMsg.Y = 0;}
-      if(analogRead(pTZ) >= 550){translationMsg.Z = constrain(map(analogRead(pTZ),1000,550,-8192,0),-8192,0);}
-      else if(analogRead(pTZ) <= 450){translationMsg.Z = constrain(map(analogRead(pTZ),450,20,0,8192),0,8192);}
+      if(analogRead(pTZ) >= 512+deadzone){translationMsg.Z = constrain(map(analogRead(pTZ),1023,512+deadzone,-8192,0),-8192,0);}
+      else if(analogRead(pTZ) <= 512-deadzone){translationMsg.Z = constrain(map(analogRead(pTZ),512-deadzone,0,0,8192),0,8192);}
       else {translationMsg.Z = 0;}
     
       break;

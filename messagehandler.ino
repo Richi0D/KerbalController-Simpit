@@ -24,7 +24,8 @@ void registerInputchannel()   // Send a message to the plugin registering to cha
 void messageHandler(byte messageType, byte msg[], byte msgSize) {
         receivedata = true;  //if any data get received, messagehandler get called
         deadtimeOld = now;   //reset idle timer
-      if (messageType==ACTIONSTATUS_MESSAGE){
+      switch(messageType){
+      case ACTIONSTATUS_MESSAGE:
         byte actions = msg[0];  // actions now contains the action group message
         if (actions & GEAR_ACTION) {gears_on = HIGH;}
         else {gears_on = LOW;}
@@ -32,32 +33,32 @@ void messageHandler(byte messageType, byte msg[], byte msgSize) {
         else {brakes_on = LOW;}
         if (actions & LIGHT_ACTION) {lights_on = HIGH;}
         else {lights_on = LOW;} 
-        }
-      if (messageType==APSIDES_MESSAGE){
+        
+      case APSIDES_MESSAGE:
         if (msgSize == sizeof(apsidesMessage)) {     
         apsidesMessage myApsides;                 
         myApsides = parseApsides(msg);
         DataAP = myApsides.apoapsis;
         DataPE = myApsides.periapsis;
         }        
-      }
-      if (messageType==APSIDESTIME_MESSAGE){
+      
+      case APSIDESTIME_MESSAGE:
         if (msgSize == sizeof(apsidesTimeMessage)) {     
         apsidesTimeMessage myApsidestime;                 
         myApsidestime = parseApsidesTime(msg);
         DataAPTime = myApsidestime.apoapsis;
         DataPETime = myApsidestime.periapsis;
         }        
-      }
-      if (messageType==ALTITUDE_MESSAGE){
+      
+      case ALTITUDE_MESSAGE:
         if (msgSize == sizeof(altitudeMessage)) {     
         altitudeMessage myAltitude;                 
         myAltitude = parseAltitude(msg);
         DataAlt = myAltitude.sealevel;
         DataRAlt = myAltitude.surface;
         }        
-      }
-      if (messageType==VELOCITY_MESSAGE){
+      
+      case VELOCITY_MESSAGE:
         if (msgSize == sizeof(velocityMessage)) {     
         velocityMessage myVelocity;                 
         myVelocity = parseVelocity(msg);
@@ -65,24 +66,24 @@ void messageHandler(byte messageType, byte msg[], byte msgSize) {
         VVI = myVelocity.vertical;
         VOrbit = myVelocity.orbital;
         }        
-      }              
-      if (messageType==AIRSPEED_MESSAGE){
+                   
+      case AIRSPEED_MESSAGE:
         if (msgSize == sizeof(airspeedMessage)) {     
         airspeedMessage myAirspeed;                 
         myAirspeed = parseAirspeed(msg);
         MachNumber = myAirspeed.mach;
         }        
-      }  
-      if (messageType==TARGETINFO_MESSAGE){
+      
+      case TARGETINFO_MESSAGE:
         if (msgSize == sizeof(targetMessage)) {     
         targetMessage myTarget;                 
         myTarget = parseTarget(msg);
         DataTargetDist = myTarget.distance;
         TargetV = myTarget.velocity;       
         }        
-      }  
-      if (messageType==SOI_MESSAGE){
-        strSOINumber = msg;     
-        }        
-                   
+        
+      case SOI_MESSAGE:
+        strSOINumber = msg;   
+          
+   }                          
 }

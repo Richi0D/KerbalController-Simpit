@@ -52,7 +52,7 @@ void controlsInit() {
   pinMode(pswitch3, INPUT_PULLUP);
   pinMode(pswitch4, INPUT_PULLUP);
   pinMode(pmodeswitch, INPUT_PULLUP);
-  
+
 //setting up bouncers
   debouncerStage.begin();
   debouncerLights.begin();
@@ -117,6 +117,6 @@ void testLEDS(int testdelay){
   AtmosphereGauge(0.05); //LED11
   delay(testdelay);  
   AtmosphereGauge(0.02); //LED12
-  delay(testdelay);  
-  AtmosphereGauge(10); //LED12              
+  delay(testdelay); 
+  AtmosphereGauge(10);   //Atmosphere gauge off             
 }
