@@ -39,7 +39,7 @@ void define_control_packet() {
       
       if(analogRead(pRX) >= 512+deadzone){rotationMsg.yaw = constrain(map(analogRead(pRX),512+deadzone,1023,0,32767),0,32767);
       wheelMsg.steer = constrain(map(analogRead(pRX),1023,512+deadzone,-32767,0),-32767,0);}
-      else if(analogRead(pRX) <= 450){rotationMsg.yaw = constrain(map(analogRead(pRX),0,512-deadzone,-32767,0),-32767,0);
+      else if(analogRead(pRX) <= 512-deadzone){rotationMsg.yaw = constrain(map(analogRead(pRX),0,512-deadzone,-32767,0),-32767,0);
       wheelMsg.steer = constrain(map(analogRead(pRX),512-deadzone,0,0,32767),0,32767);}
       else {rotationMsg.yaw = 0;
       wheelMsg.steer = 0;}
