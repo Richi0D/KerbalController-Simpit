@@ -557,8 +557,7 @@ void define_vessel_data_display() {
       strIntakeAir += String(IntakeAirTot,0);
       sendToDisplay2(String("tair.txt=\"") + String(strIntakeAir)+String("\""));                   
   }
-
-  sendToDisplay2(String("txe.txt=\"") + String(strSOI)+String("\""));    
+   
   }  
           
 }
