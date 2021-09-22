@@ -102,9 +102,6 @@ unsigned long deadtime, deadtimeOld, controlTime, controlTimeOld, displayTime, d
 unsigned long debugtime, debugtimeOld =0, atmotime, atmotimeOld =0;
 unsigned long now = 0;
 
-//variables used in serial communication
-boolean Connected = false;
-byte id =0;
 
 //variables used for display status
 byte PageDisplay1 = 0;              //Page display1
@@ -259,7 +256,6 @@ void setup()  //Starting the Arduino
       SASval = AP_STABILITYASSIST; //Set Standard SAS Mode on load
       
       mySimpit.printToKSP("Connected", PRINT_TO_SCREEN); // Display a message in KSP to indicate handshaking is complete.
-      Connected = true;
       pinMode(LED_BUILTIN, OUTPUT);
       digitalWrite(LED_BUILTIN, LOW);
   

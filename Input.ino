@@ -22,8 +22,7 @@ void get_vessel_data() {
     now = millis();
 
     if (inflight){
-      //we are in flight. Update Displays
-      deadtimeOld = now;                
+      //we are in flight. Update Displays                
         displayTime = now - displayTimeOld;
         if (displayTime > DISPLAYREFRESH) {
           displayTimeOld = now;
@@ -54,8 +53,6 @@ void get_vessel_data() {
         }
       }
       else  { //if not in flight, go idle
-      deadtime = now - deadtimeOld; 
-      if (deadtime > IDLETIMER){
         if (PageDisplay1 !=1){
           PageDisplay1 = 1;
           sendToDisplay1(String("page ") + String(PageDisplay1));}
@@ -76,8 +73,7 @@ void get_vessel_data() {
         digitalWrite(pLADDERLED, LOW);
         digitalWrite(pSOLARLED, LOW);
         digitalWrite(pCHUTESLED, LOW);
-      }
-    }    
+      }    
   } 
 
 //define what to do with the vessel data here, e.g. turn on LED's, display text on the LCD
@@ -420,7 +416,6 @@ void define_vessel_data_display() {
       strbattery += String(EChargeTot,0);
       sendToDisplay2(String("tel.txt=\"") + String(strbattery)+String("\""));
   }
-  sendToDisplay2(String("tel.txt=\"") + String(ECharge)+String("\""));
   
   //Monopropellant
   if (MonoPropTot <= 0){
@@ -445,7 +440,6 @@ void define_vessel_data_display() {
       strMonopropellant += String(MonoPropTot,0);
       sendToDisplay2(String("tmp.txt=\"") + String(strMonopropellant)+String("\""));
   }
-  sendToDisplay2(String("tmp.txt=\"") + String(MonoProp)+String("\""));
   
   //Liquid Fuel
   if (LiquidFuelTot <= 0){
@@ -470,7 +464,6 @@ void define_vessel_data_display() {
       strLiquidFuel += String(LiquidFuelTot,0);
       sendToDisplay2(String("tlf.txt=\"") + String(strLiquidFuel)+String("\""));
   }
-  //sendToDisplay2(String("tlf.txt=\"") + String(myLF.available)+String("\""));
   
   //Oxidized
   if (OxidizerTot <= 0){
@@ -565,8 +558,7 @@ void define_vessel_data_display() {
       sendToDisplay2(String("tair.txt=\"") + String(strIntakeAir)+String("\""));                   
   }
 
-  sendToDisplay2(String("tair.txt=\"") + String(strSOI)+String("\"")); 
-  sendToDisplay2(String("txe.txt=\"") + String(DataAlt)+String("\""));    
+  sendToDisplay2(String("txe.txt=\"") + String(strSOI)+String("\""));    
   }  
           
 }

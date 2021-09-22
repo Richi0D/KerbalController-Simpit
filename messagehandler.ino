@@ -65,7 +65,10 @@ void messageHandler(byte messageType, byte msg[], byte msgSize) {
         }        
         break;
       case SOI_MESSAGE:
-        strSOI = (char *)msg;   
+        strSOI = "";    
+        for (byte i = 0; i < msgSize; i++){
+          strSOI += char(msg[i]);
+        }
         break;
       case ELECTRIC_MESSAGE:
         if (msgSize == sizeof(resourceMessage)) {     
