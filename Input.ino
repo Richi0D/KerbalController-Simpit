@@ -16,6 +16,7 @@ float XenonGas;
 float XenonGasTot;
 float IntakeAir;
 float IntakeAirTot;
+float density;
 
 
 void get_vessel_data() {
@@ -93,7 +94,12 @@ void get_vessel_data() {
 //define what to do with the vessel data here, e.g. turn on LED's, display text on the LCD
 void define_vessel_data_display() {
 
-//AtmosphereGauge(VData.Density);   //call Atmosphere gauge, missing density message in simpit
+  if (hasAtmo){
+    AtmosphereGauge(density); 
+  }
+  else{
+    AtmosphereGauge(10);   //Atmosphere gauge off 
+  }
 
   //update SAS buttons based on in-game status
   switch (PageDisplay1){

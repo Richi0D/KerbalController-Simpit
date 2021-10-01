@@ -132,6 +132,7 @@ bool action4_on = false;
 bool action5_on = false;
 bool action6_on = false;
 bool inflight = false;
+bool hasAtmo = false;
 
 //input value variables
 int throttle_value;

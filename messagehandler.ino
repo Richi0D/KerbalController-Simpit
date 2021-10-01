@@ -12,7 +12,8 @@ void registerInputchannel()   // Send a message to the plugin registering to cha
   mySimpit.registerChannel(OX_MESSAGE); 
   mySimpit.registerChannel(SF_MESSAGE); 
   mySimpit.registerChannel(XENON_GAS_MESSAGE);
-  mySimpit.registerChannel(CUSTOM_RESOURCE_1_MESSAGE);              
+  mySimpit.registerChannel(CUSTOM_RESOURCE_1_MESSAGE);
+  mySimpit.registerChannel(ATMO_CONDITIONS_MESSAGE);              
 }   
 
 void messageHandler(byte messageType, byte msg[], byte msgSize) {
@@ -125,6 +126,13 @@ void messageHandler(byte messageType, byte msg[], byte msgSize) {
           IntakeAir = myCustom1.currentResource1;
           IntakeAirTot = myCustom1.maxResource1;
         }        
-        break;                                          
+        break;
+      case ATMO_CONDITIONS_MESSAGE:
+        if (msgSize == sizeof(atmoConditionsMessage)) {                 
+          atmoConditionsMessage myAtmo = parseMessage<atmoConditionsMessage>(msg);
+          density = myAtmo.airDensity;
+          hasAtmo = myAtmo.hasAtmosphere();
+        }        
+        break;                                                 
    }                          
 }
