@@ -131,7 +131,7 @@ void messageHandler(byte messageType, byte msg[], byte msgSize) {
         if (msgSize == sizeof(atmoConditionsMessage)) {                 
           atmoConditionsMessage myAtmo = parseMessage<atmoConditionsMessage>(msg);
           density = myAtmo.airDensity;
-          hasAtmo = myAtmo.hasAtmosphere();
+          inAtmo = myAtmo.isVesselInAtmosphere();
         }        
         break;                                                 
    }                          

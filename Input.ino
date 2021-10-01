@@ -94,7 +94,7 @@ void get_vessel_data() {
 //define what to do with the vessel data here, e.g. turn on LED's, display text on the LCD
 void define_vessel_data_display() {
 
-  if (hasAtmo){
+  if (inAtmo){
     AtmosphereGauge(density); 
   }
   else{
