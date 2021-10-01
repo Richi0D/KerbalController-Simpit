@@ -60,7 +60,21 @@ void get_vessel_data() {
           PageDisplay2 = 1;
           sendToDisplay2(String("page ") + String(PageDisplay2));}
         AtmosphereGauge(10);   //Atmosphere gauge off     
-        //turn off Leds
+        
+        //turn off Leds and Status
+          action1_on = false;
+          action2_on = false;
+          action3_on = false;
+          action4_on = false;
+          action5_on = false;
+          action6_on = false;
+          ladder_on = false;
+          chutes_on = false;
+          solar_on = false;
+          gears_on = false;
+          brakes_on = false;
+          lights_on = false;
+              
         digitalWrite(pLIGHTSLED, LOW); 
         digitalWrite(pGEARSLED, LOW);
         digitalWrite(pBRAKESLED, LOW);
