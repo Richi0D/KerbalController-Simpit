@@ -54,7 +54,7 @@ void messageHandler(byte messageType, byte msg[], byte msgSize) {
         if (msgSize == sizeof(flightStatusMessage)) {
           flightStatusMessage flightStatus;
           flightStatus = parseFlightStatusMessage(msg);
-          inflight = flightStatus.isInFligth();
+          inflight = flightStatus.isInFlight();
         }
         break;
       case ALTITUDE_MESSAGE:
